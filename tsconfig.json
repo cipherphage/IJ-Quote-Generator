@@ -1,0 +1,15 @@
+{
+    "include": [
+        "./src/**/*"
+, "src/TransformerWorker.js"    ],
+    "compilerOptions": {
+        "strict": true,
+        "esModuleInterop": true,
+        "lib": [
+            "dom",
+            "es2023"
+        ],
+        "jsx": "react-jsx",
+        "downlevelIteration": true
+    }
+}
