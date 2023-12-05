@@ -6,6 +6,6 @@
 
 ## Video of it working
 
-https://github.com/cipherphage/IJ-Quote-Generator/blob/main/RandomIJQuotesTypewriterEffect.mov
-
-Press play to view the video.
+<video controls>
+  <source src="https://github.com/cipherphage/IJ-Quote-Generator/blob/main/RandomIJQuotesTypewriterEffect.mov" type="video/mp4">
+</video>
