@@ -1,10 +1,20 @@
 interface LetterSpanProps {
-  k: string;
   letter: string;
+  charaClass: string;
+  isTerminalMode: boolean;
 }
 
-export default function LetterSpan({ k, letter }: LetterSpanProps) {
-  return <span key={k} className="LetterSpan">
-      {letter}
+export default function LetterSpan({
+  letter,
+  charaClass,
+  isTerminalMode
+}: LetterSpanProps) {
+  let l = letter;
+  let s = <>&nbsp;&nbsp;</>;
+
+  if (isTerminalMode) l = '';
+
+  return <span className={charaClass}>
+      {l ? l : s}
     </span>;
 };

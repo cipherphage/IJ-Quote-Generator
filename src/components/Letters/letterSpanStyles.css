@@ -1,14 +1,14 @@
 /* Animate a rectagular shadow typing effect. */
 
-.LetterSpan {
+.react-natural-typing-typewriter {
   background-color: white;
   color: white;
-  animation-name: typewriter;
+  animation-name: react-natural-typing-effect-typewriter-animation;
   animation-duration: 200ms;
   animation-fill-mode: forwards;
 }
 
-@keyframes typewriter {
+@keyframes react-natural-typing-effect-typewriter-animation {
   from {
     background-color: black;
     color: black;
@@ -19,6 +19,30 @@
   }
 }
 
-.HiddenElement {
-  visibility: hidden;
+.react-natural-typing-negativeTypewriter {
+  background-color: black;
+  color: black;
+  animation-name: react-natural-typing-effect-negativeTypewriter-animation;
+  animation-duration: 200ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes react-natural-typing-effect-negativeTypewriter-animation {
+  from {
+    background-color: white;
+    color: white;
+  }
+  to {
+    background-color: black;
+    color: white;
+  }
+}
+
+.react-natural-typing-blackGreenTerminal {
+  background-color: black;
+  color: greenyellow;
+}
+
+.react-natural-typing-effect-blackGreenTerminal-cursor {
+  background-color: greenyellow;
 }
