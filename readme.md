@@ -3,7 +3,6 @@
 ## About
 This is a very simple and small React/Typescript component library made to display a string's characters as Span elements within a Div element using a natural-feeling typing animation that is straight-forwardly configurable and stylable.
 
-
 ## Usage
 
 In your terminal: <br/>
@@ -48,5 +47,5 @@ In your code:
 
 ## Video of it working
 
-[https://github.com/cipherphage/IJ-Quote-Generator/blob/main/RandomIJQuotesTypewriterEffect.mov](https://github.com/cipherphage/IJ-Quote-Generator/blob/main/RandomIJQuotesTypewriterEffect.mov)
+
 
