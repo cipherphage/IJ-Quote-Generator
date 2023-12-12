@@ -47,20 +47,19 @@
   background-color: greenyellow;
 }
 
-.react-natural-typing-effect-blackGreenTerminal-blinking-cursor {
-  background-color: greenyellow;
+.react-natural-typing-effect-blinking-cursor {
   animation-iteration-count: infinite;
-  animation-name: react-natural-typing-effect-blackGreenTerminal-blinking-cursor-animation;
+  animation-name: react-natural-typing-effect-blinking-cursor-animation;
   animation-duration: 250ms;
   animation-fill-mode: forwards;
 }
 
-@keyframes react-natural-typing-effect-blackGreenTerminal-blinking-cursor-animation {
+@keyframes react-natural-typing-effect-blinking-cursor-animation {
   from {
-    background-color: black;
+    visibility: visible;
   }
   to {
-    background-color: greenyellow;
+    visibility: hidden;
   }
 }
 

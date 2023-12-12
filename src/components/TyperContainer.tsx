@@ -96,7 +96,8 @@ export default function NaturalTyper({
               key={key}
               id={key}
               letter={letter}
-              cursorAtEndOfLine={customTypingOptions?.mode === 'blackGreenTerminal' ? true : customTypingOptions?.cursorAtEndOfLine}
+              mode={customTypingOptions?.mode}
+              cursorAtEndOfLine={customTypingOptions?.cursorAtEndOfLine}
               blinkingCursor={customTypingOptions?.blinkingCursor}
               charaClass={charaCl}
               reset={reset} 

@@ -1,21 +1,23 @@
 import { CSSProperties, StyleHTMLAttributes, useEffect, useState } from "react";
 import "./letterSpanStyles.css";
 import LetterSpan from "./LetterSpan";
-import { defaultStyleClasses } from "../../utils/defaults";
+import { defaultModes, defaultStyleClasses } from "../../utils/defaults";
 
 interface LetterSpannerProps {
   id: number;
   letter: Letter;
-  cursorAtEndOfLine: boolean | undefined;
-  blinkingCursor: boolean | undefined;
+  mode?: string;
+  cursorAtEndOfLine?: boolean;
+  blinkingCursor?: boolean;
   charaClass: string;
   reset: boolean;
-  style: CSSProperties | undefined;
+  style?: CSSProperties;
 }
 
 export default function LetterSpanner({
   id,
   letter,
+  mode,
   cursorAtEndOfLine,
   blinkingCursor,
   charaClass,
@@ -44,9 +46,13 @@ export default function LetterSpanner({
         if ((i === letterArray.length-1) && cursorAtEndOfLine) {
           ceol = true;
           if (blinkingCursor) {
-            cl = defaultStyleClasses.bgtBlinkingCursor;
+            cl = (mode === defaultModes.bgt) ?
+              defaultStyleClasses.bgtBlinkingCursor :
+              defaultStyleClasses.blinkingCursor;
           } else {
-            cl = defaultStyleClasses.bgtCursor;
+            cl = (mode === defaultModes.bgt) ?
+              defaultStyleClasses.bgtCursor :
+              defaultStyleClasses.cursor;
           }
           
         }

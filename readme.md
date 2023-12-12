@@ -48,11 +48,12 @@ In your code:
       - Optional.
       - Default: `false` unless the built-in mode `blackGreenTerminal` is used.
       - Adds a cursor-like Span element at the end of the text.
+      - Note: if set to `true` and mode `blackGreenTerminal` is not used then an unused CSS class name called `react-natural-typing-effect-cursor` is added to the cursor Span element. 
     - `blinkingCursor`
       - Type: `boolean`.
       - Optional.
       - Default: `false`.
-      - Adds a blinking effect to the cursor. Only works if `cursorAtEndOfLine` is `true` or the built-in mode `blackGreenTerminal` is used.
+      - Adds a blinking effect to the cursor. Only works if `cursorAtEndOfLine` is also `true`.
     - `typerCharacterClass`:
       - Type: `string | string[]`.
       - Optional.
