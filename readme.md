@@ -17,35 +17,71 @@ In your code:
 
 - `text`: 
   - Type: `string`.
+  - Default: none.
   - Required.
+  - The string to render with a natural typing effect.
   
-- `isLoading`: 
+- `isVisible`: 
   - Type: `boolean`.
   - Optional.
-  - Default: `false`.
+  - Default: `true`.
+  - Whether the component is visible or not.
 
 - `customTypingOptions`:
   - Type: `CustomTypingOptions`.
-    - `{ ms: number, pow: number }`.
-  - Optional.
-  - Default: `{ ms: 20, pow: 2 }`. "ms" is milliseconds, "pow" is the exponent to skew to shorter or longer intervals.
+    - `{ ms: number, pow: number, ... }`.
+  - Optional and all options are also optional.
+  - Default: none.
+  - Options:
+    - `ms`
+      - Type: `number`.
+      - Optional.
+      - Default: `20`.
+      - Milliseconds.
+    - `pow`
+      - Type: `number`.
+      - Optional.
+      - Default: `2`.
+      - The exponent to skew to shorter (greater exponent) or longer (smaller exponent) intervals.
+    - `cursorAtEndOfLine`
+      - Type: `boolean`.
+      - Optional.
+      - Default: `false` unless the built-in mode `blackGreenTerminal` is used.
+      - Adds a cursor-like Span element at the end of the text.
+    - `blinkingCursor`
+      - Type: `boolean`.
+      - Optional.
+      - Default: `false`.
+      - Adds a blinking effect to the cursor. Only works if `cursorAtEndOfLine` is `true` or the built-in mode `blackGreenTerminal` is used.
+    - `typerCharacterClass`:
+      - Type: `string | string[]`.
+      - Optional.
+      - Default: `''` empty string.
+      - Child component (Span element) CSS classes.
+    - `typerCharacterInlineStyle`:
+      - Type: `CSSProperties`.
+      - Optional.
+      - Default: `{}` empty object.
+      - Child component (Span element) CSS classes.
+    - `clearBuiltinStyle`
+      - Type: `boolean`.
+      - Optional.
+      - Default: none.
+      - Removes any built-in CSS classes.
   
-- `typerContainerClasses`:
+- `typerContainerClass`:
   - Type: `string | string[]`.
   - Optional.
   - Default: `''` empty string.
+  - Parent component (Div element) CSS classes.
 
-- `typerCharacterClasses`: 
-  - Type: `string | string[]`.
+- `typerContainerInlineStyle`:
+  - Type: `CSSProperties`.
   - Optional.
-  - Default: `'react-natural-typing-typewriter'`.
-
-- `mode`:
-  - Type: string literal: `'typewriter' | 'negativeTypewriter' | 'blackGreenTerminal'`.
-  - Optional.
-  - Default: `typewriter`.
+  - Default: `{}` empty object.
+  - Parent component (Div element) in-line styling.
 
 ## Video of it working
 
-
+TBD
 

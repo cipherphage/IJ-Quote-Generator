@@ -1,3 +1,5 @@
+import { defaultStyleClasses, defaultStyleClassesPrefix, defaultStylesRegex } from "./defaults";
+
 export const typerPauseRandom = async (ms = 20, pow = 2) => {
   // Use random millisecond and power distribution (thus skewing to smaller pauses)
   // to simulate actual typing.
@@ -6,9 +8,15 @@ export const typerPauseRandom = async (ms = 20, pow = 2) => {
   return timeout;
 };
 
-export const updateModeInClasses = (classes: string, mode: AllowedModes) => {
-  classes.replace(/react-natural-typing-effect-typewriter/g, '');
-  classes.replace(/react-natural-typing-effect-negativeTypewriter/g, '');
-  classes.replace(/react-natural-typing-effect-blackGreenTerminal/g, '');
-  return 'react-natural-typing-' + mode + ' ' + classes;
+// If mode provided, then return classes string with default classes removed
+// and new default mode added. If no mode is provided, then return classes
+// string with all default classes removed.
+export const updateModeInClasses = (classes: string, mode: string = 'typewriter') => {
+  let newClasses = classes.replace(defaultStylesRegex, '');
+
+  if (mode) {
+    return `${defaultStyleClassesPrefix}` + mode + ' ' + newClasses;
+  } else {
+    return newClasses;
+  }
 };

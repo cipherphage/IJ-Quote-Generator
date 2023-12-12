@@ -1,25 +1,34 @@
-import { useEffect, useState } from "react";
+import { CSSProperties, StyleHTMLAttributes, useEffect, useState } from "react";
 import "./letterSpanStyles.css";
 import LetterSpan from "./LetterSpan";
+import { defaultStyleClasses } from "../../utils/defaults";
 
 interface LetterSpannerProps {
+  id: number;
   letter: Letter;
+  cursorAtEndOfLine: boolean | undefined;
+  blinkingCursor: boolean | undefined;
   charaClass: string;
   reset: boolean;
-  isTerminalMode: boolean;
+  style: CSSProperties | undefined;
 }
 
 export default function LetterSpanner({
+  id,
   letter,
+  cursorAtEndOfLine,
+  blinkingCursor,
   charaClass,
   reset,
-  isTerminalMode
+  style
 }: LetterSpannerProps) {
   const [letterArray, setLetterArray] = useState<string[]>([]);
 
   useEffect(() => {
-    const newLetterArray = [...letterArray, letter.letter];
-    setLetterArray(newLetterArray);
+    if (id === letter.key) {
+      const newLetterArray = [...letterArray, letter.letter];
+      setLetterArray(newLetterArray);
+    }
   }, [letter]);
 
   useEffect(() => {
@@ -30,18 +39,25 @@ export default function LetterSpanner({
     <>
       {letterArray.map((letter, i) => {
         let cl = charaClass;
-        let tm = false;
+        let ceol = false;
 
-        if ((i === letterArray.length-1) && isTerminalMode) {
-          cl = 'react-natural-typing-effect-blackGreenTerminal-cursor';
-          tm = true;
+        if ((i === letterArray.length-1) && cursorAtEndOfLine) {
+          ceol = true;
+          if (blinkingCursor) {
+            cl = defaultStyleClasses.bgtBlinkingCursor;
+          } else {
+            cl = defaultStyleClasses.bgtCursor;
+          }
+          
         }
         
         return <LetterSpan
           key={i+letter+'-r-natural-typing-effect-ls'}
           letter={letter}
+          cursorAtEndOfLine={ceol}
           charaClass={cl}
-          isTerminalMode={tm} />;
+          style={style} 
+        />;
       })}
     </>
   );

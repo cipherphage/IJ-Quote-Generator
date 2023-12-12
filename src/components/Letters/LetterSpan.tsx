@@ -1,20 +1,23 @@
+import { CSSProperties } from "react";
+
 interface LetterSpanProps {
   letter: string;
+  cursorAtEndOfLine: boolean;
   charaClass: string;
-  isTerminalMode: boolean;
+  style: CSSProperties | undefined;
 }
 
 export default function LetterSpan({
   letter,
+  cursorAtEndOfLine,
   charaClass,
-  isTerminalMode
+  style,
 }: LetterSpanProps) {
   let l = letter;
   let s = <>&nbsp;&nbsp;</>;
 
-  if (isTerminalMode) l = '';
-
-  return <span className={charaClass}>
+  if (cursorAtEndOfLine) l = '';
+  return <span className={charaClass} style={style}>
       {l ? l : s}
     </span>;
 };
