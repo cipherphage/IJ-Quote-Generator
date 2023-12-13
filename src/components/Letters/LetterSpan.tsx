@@ -1,12 +1,3 @@
-import { CSSProperties } from "react";
-
-interface LetterSpanProps {
-  letter: string;
-  cursorAtEndOfLine: boolean;
-  charaClass: string;
-  style: CSSProperties | undefined;
-}
-
 export default function LetterSpan({
   letter,
   cursorAtEndOfLine,

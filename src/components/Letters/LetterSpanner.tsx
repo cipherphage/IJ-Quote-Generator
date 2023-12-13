@@ -1,18 +1,7 @@
-import { CSSProperties, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./letterSpanStyles.css";
 import LetterSpan from "./LetterSpan";
 import { defaultModes, defaultStyleClasses } from "../../utils/defaults";
-
-interface LetterSpannerProps {
-  id: number;
-  letter: Letter;
-  mode?: string;
-  cursorAtEndOfLine?: boolean;
-  blinkingCursor?: boolean;
-  charaClass: string;
-  reset: boolean;
-  style?: CSSProperties;
-}
 
 export default function LetterSpanner({
   id,

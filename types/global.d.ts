@@ -1,6 +1,6 @@
-import { CSSProperties } from "react"
+import { CSSProperties } from "react";
 
-export {}
+export {};
 
 declare global {
   type Letter = {
@@ -17,5 +17,32 @@ declare global {
     typerCharacterClass?: string | string[]
     typerCharacterInlineStyle?: CSSProperties
     clearBuiltinStyle?: boolean
+  }
+
+  interface TyperProps {
+    id?: string;
+    text: string;
+    isVisible?: boolean;
+    customTypingOptions?: CustomTypingOptions;
+    typerContainerClass?: string | string[];
+    typerContainerInlineStyle?: CSSProperties;
+  }
+
+  interface LetterSpannerProps {
+    id: number;
+    letter: Letter;
+    mode?: string;
+    cursorAtEndOfLine?: boolean;
+    blinkingCursor?: boolean;
+    charaClass: string;
+    reset: boolean;
+    style?: CSSProperties;
+  }
+
+  interface LetterSpanProps {
+    letter: string;
+    cursorAtEndOfLine: boolean;
+    charaClass: string;
+    style: CSSProperties | undefined;
   }
 }

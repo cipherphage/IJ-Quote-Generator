@@ -11,6 +11,8 @@
   "license": "MIT",
   "repository": "cipherphage/react-natural-typing-effect",
   "main": "dist/index.js",
+  "module": "dist/index.js",
+  "bin": "dist/index.js",
   "type": "module",
   "engines": {
     "node": ">=18",
@@ -20,11 +22,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.5",
     "@types/react": "^18.2.37",
@@ -37,6 +37,8 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "rollup": "^3.29.4",
     "rollup-plugin-postcss": "^4.0.2",
@@ -56,5 +58,6 @@
   ],
   "files": [
     "dist"
-  ]
+  ],
+  "types": "dist/types/index.d.ts"
 }

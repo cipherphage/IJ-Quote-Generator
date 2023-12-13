@@ -1,18 +1,9 @@
-import { CSSProperties, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LetterSpanner from "./components/Letters/LetterSpanner";
 import { typerPauseRandom, updateModeInClasses } from "./utils/helpers";
 import { defaultLetter, defaultModes } from "./utils/defaults";
 
-interface TyperProps {
-  id?: string;
-  text: string;
-  isVisible?: boolean;
-  customTypingOptions?: CustomTypingOptions;
-  typerContainerClass?: string | string[];
-  typerContainerInlineStyle?: CSSProperties;
-}
-
-export default function Typer({
+const Typer = function({
   id = 'react-natural-typing-effect-container', 
   text,
   isVisible = true,
@@ -108,4 +99,6 @@ export default function Typer({
       </div>}
     </>
   );
-}
+};
+
+export default Typer;
