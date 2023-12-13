@@ -45,6 +45,14 @@ import Typer from "react-natural-typing-effect";
       - Optional.
       - Default: `2`.
       - The exponent to skew to shorter (greater exponent) or longer (smaller exponent) intervals.
+    - `mode`
+      - Type: `string`.
+      - Optional.
+      - Default: `typewriter`.
+      - Built in modes are:
+        - `typewriter` black text, white background, black typing head (default).
+        - `negativeTypewriter` white text, black background, white typing head.
+        - `blackGreenTerminal` green text, black background, solid green cursor at end of line.
     - `cursorAtEndOfLine`
       - Type: `boolean`.
       - Optional.
