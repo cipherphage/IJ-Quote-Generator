@@ -10,6 +10,8 @@ In your terminal: <br/>
 
 In your code:
 ```javascript
+import Typer from "react-natural-typing-effect";
+
 <Typer text="This text will be typed." />
 ```
 
