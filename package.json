@@ -9,7 +9,7 @@
   ],
   "author": "cipherphage",
   "license": "MIT",
-  "repository": "cipherphage/react-natural-typing-effect",
+  "repository": "cipherphage/react-typing-effect",
   "main": "dist/index.js",
   "type": "module",
   "engines": {
