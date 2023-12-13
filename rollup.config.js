@@ -13,7 +13,7 @@ export default {
             exports: 'named',
             sourcemap: true,
             strict: true,
-            name: 'react-typing-effect'
+            name: 'react-natural-typing-effect'
         }
 
     ],

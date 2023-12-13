@@ -1,5 +1,5 @@
 {
-  "name": "react-typing-effect",
+  "name": "react-natural-typing-effect",
   "version": "1.0.0",
   "description": "A simple React component library made to display a string's characters as Span elements within a Div element using a natural-feeling typing animation that is configurable",
   "keywords": [
@@ -9,7 +9,7 @@
   ],
   "author": "cipherphage",
   "license": "MIT",
-  "repository": "cipherphage/react-typing-effect",
+  "repository": "cipherphage/react-natural-typing-effect",
   "main": "dist/index.js",
   "type": "module",
   "engines": {
