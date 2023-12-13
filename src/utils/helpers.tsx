@@ -1,4 +1,4 @@
-import { defaultStyleClasses, defaultStyleClassesPrefix, defaultStylesRegex } from "./defaults";
+import { defaultStyleClassesPrefix, defaultStylesRegex } from "./defaults";
 
 export const typerPauseRandom = async (ms = 20, pow = 2) => {
   // Use random millisecond and power distribution (thus skewing to smaller pauses)

@@ -1,19 +1,25 @@
 {
-    "include": [
-        "./src/**/*", 
-        "src/TransformerWorker.js",
-        "**/*.ts",
-        "**/*.tsx"
-    ],
+    "include": ["src", "types"],
+    "exclude": ["node_modules", "dist", "example", "rollup.config.js"],
     "compilerOptions": {
         "strict": true,
-        "esModuleInterop": true,
-        "lib": [
-            "dom",
-            "es2023"
-        ],
+        "outDir": "dist",
+        "module": "esnext",
+        "target": "es5",
+        "lib": ["dom", "esnext"],
         "jsx": "react-jsx",
         "downlevelIteration": true,
-        "typeRoots": ["./types", "./node_modules/@types"]
+        "typeRoots": ["./types", "./node_modules/@types"],
+        "sourceMap": true,
+        "allowJs": false,
+        "declaration": true,
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
     }
 }

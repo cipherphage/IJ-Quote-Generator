@@ -1,4 +1,4 @@
-import { CSSProperties, StyleHTMLAttributes, useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import "./letterSpanStyles.css";
 import LetterSpan from "./LetterSpan";
 import { defaultModes, defaultStyleClasses } from "../../utils/defaults";
