@@ -1,6 +1,6 @@
 {
   "name": "react-natural-typing-effect",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple React component library made to display a string's characters as Span elements within a Div element using a natural-feeling typing animation that is configurable",
   "keywords": [
     "typescript",

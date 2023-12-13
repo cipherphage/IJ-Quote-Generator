@@ -29,7 +29,7 @@ export default function LetterSpanner({
   return (
     <>
       {letterArray.map((letter, i) => {
-        let cl = charaClass;
+        let cl = '';
         let ceol = false;
 
         if ((i === letterArray.length-1) && cursorAtEndOfLine) {
@@ -46,13 +46,22 @@ export default function LetterSpanner({
           
         }
         
-        return <LetterSpan
-          key={i+letter+'-r-natural-typing-effect-ls'}
-          letter={letter}
-          cursorAtEndOfLine={ceol}
-          charaClass={cl}
-          style={style} 
-        />;
+        return <>
+          <LetterSpan
+            key={i+letter+'-r-natural-typing-effect-ls'}
+            letter={letter}
+            cursorAtEndOfLine={false}
+            charaClass={charaClass}
+            style={style} 
+          />
+          {ceol && <LetterSpan
+              key={i+letter+'-r-natural-typing-effect-cursor'}
+              letter={letter}
+              cursorAtEndOfLine={ceol}
+              charaClass={cl}
+              style={style} 
+            />}
+        </>;
       })}
     </>
   );

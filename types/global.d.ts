@@ -43,6 +43,6 @@ declare global {
     letter: string;
     cursorAtEndOfLine: boolean;
     charaClass: string;
-    style: CSSProperties | undefined;
+    style?: CSSProperties;
   }
 }

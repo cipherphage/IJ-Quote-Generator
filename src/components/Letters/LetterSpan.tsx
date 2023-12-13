@@ -1,14 +1,18 @@
+import { ReactElement } from "react";
+
 export default function LetterSpan({
   letter,
   cursorAtEndOfLine,
   charaClass,
   style,
 }: LetterSpanProps) {
-  let l = letter;
-  let s = <>&nbsp;&nbsp;</>;
+  let l: string | ReactElement = letter;
 
-  if (cursorAtEndOfLine) l = '';
+  if (cursorAtEndOfLine) {
+    l = <>&nbsp;&nbsp;</>;
+  }
+
   return <span className={charaClass} style={style}>
-      {l ? l : s}
+      {l}
     </span>;
 };
