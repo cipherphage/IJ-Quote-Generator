@@ -11,7 +11,7 @@ export const typerPauseRandom = async (ms = 20, pow = 2) => {
 // If mode provided, then return classes string with default classes removed
 // and new default mode added. If no mode is provided, then return classes
 // string with all default classes removed.
-export const updateModeInClasses = (classes: string, mode: string = 'typewriter') => {
+export const updateModeInClasses = (classes: string, mode?: string) => {
   let newClasses = classes.replace(defaultStylesRegex, '');
 
   if (mode) {
