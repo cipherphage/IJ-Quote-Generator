@@ -92,7 +92,14 @@ import Typer from "react-natural-typing-effect";
   - Default: `{}` empty object.
   - Parent component (Div element) in-line styling.
 
-## Video of it working
+## Gifs of it working
 
-TBD
+`typewriter` mode: <br/>
+![typewriter mode](default-jKxlV92Cod.gif)
+
+`negativeTypewriter` mode: <br/>
+![negative typewriter mode](negative-zbv2zUWpHv.gif)
+
+`blackGreenTerminal` mode: <br/>
+![black green terminal mode](bgterminal-4ysR3YWRt7.gif)
 

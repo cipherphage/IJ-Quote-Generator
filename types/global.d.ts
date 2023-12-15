@@ -20,7 +20,6 @@ declare global {
   }
 
   interface TyperProps {
-    id?: string;
     text: string;
     isVisible?: boolean;
     customTypingOptions?: CustomTypingOptions;
@@ -29,7 +28,7 @@ declare global {
   }
 
   interface LetterSpannerProps {
-    id: number;
+    spannerId: number;
     letter: Letter;
     mode?: string;
     cursorAtEndOfLine?: boolean;

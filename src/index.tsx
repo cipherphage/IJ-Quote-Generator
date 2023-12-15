@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import LetterSpanner from "./components/Letters/LetterSpanner";
 import { typerPauseRandom, updateModeInClasses } from "./utils/helpers";
 import { defaultLetter, defaultModes } from "./utils/defaults";
+import React from "react";
 
-const Typer = function({
-  id = 'react-natural-typing-effect-container', 
+const Typer = function({ 
   text,
   isVisible = true,
   customTypingOptions,
@@ -19,21 +19,21 @@ const Typer = function({
   const [key, setKey] = useState(0);
 
   useEffect(() => {
-    if ((text !== textString) && isVisible) {
+    if (text !== textString) {
       setTextString(text);
       setReset(true);
     }
   }, [text]);
 
   useEffect(() => {
-    if (isVisible && textString) {
+    if (textString) {
       setKey(key+1);
     }
   }, [textString]);
 
   useEffect(() => {
-    if (isVisible && textString) {
-      typewriter(customTypingOptions);
+    if (textString) {
+      typewriter(key, customTypingOptions);
     }
   }, [key])
 
@@ -70,7 +70,7 @@ const Typer = function({
   }, [customTypingOptions]);
 
   // Creates LetterSpans one at a time with natural typing timeout effect.
-  const typewriter = async (tparams: CustomTypingOptions | undefined) => {
+  const typewriter = async (key: number, tparams: CustomTypingOptions | undefined) => {
     const t = textString.split('');
 
     if (t.length) {
@@ -83,11 +83,11 @@ const Typer = function({
   };
 
   return (
-    <>
-      {isVisible &&  <div id={id} className={ccl} style={typerContainerInlineStyle}>
+    <React.Fragment key={key+'-typercontainer'} >
+      {isVisible &&  <div className={ccl} style={typerContainerInlineStyle} >
           <LetterSpanner
-              key={key}
-              id={key}
+              key={key+'-typerlspanner'}
+              spannerId={key}
               letter={letter}
               mode={customTypingOptions?.mode}
               cursorAtEndOfLine={customTypingOptions?.mode === defaultModes.bgt ? true : customTypingOptions?.cursorAtEndOfLine}
@@ -97,7 +97,7 @@ const Typer = function({
               style={customTypingOptions?.typerCharacterInlineStyle}
             /> 
       </div>}
-    </>
+    </React.Fragment>
   );
 };
 

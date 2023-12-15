@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import "./letterSpanStyles.css";
 import LetterSpan from "./LetterSpan";
 import { defaultModes, defaultStyleClasses } from "../../utils/defaults";
+import React from "react";
 
 export default function LetterSpanner({
-  id,
+  spannerId,
   letter,
   mode,
   cursorAtEndOfLine,
@@ -16,7 +17,7 @@ export default function LetterSpanner({
   const [letterArray, setLetterArray] = useState<string[]>([]);
 
   useEffect(() => {
-    if (id === letter.key) {
+    if (spannerId === letter.key) {
       const newLetterArray = [...letterArray, letter.letter];
       setLetterArray(newLetterArray);
     }
@@ -27,7 +28,7 @@ export default function LetterSpanner({
   }, [reset]);
 
   return (
-    <>
+    <React.Fragment key={spannerId+'typerlspannercontainer'}>
       {letterArray.map((letter, i) => {
         let cl = '';
         let ceol = false;
@@ -43,26 +44,23 @@ export default function LetterSpanner({
               defaultStyleClasses.bgtCursor :
               defaultStyleClasses.cursor;
           }
-          
         }
         
-        return <>
+        return <React.Fragment key={i+letter+'lspan'+spannerId}>
           <LetterSpan
-            key={i+letter+'-r-natural-typing-effect-ls'}
             letter={letter}
             cursorAtEndOfLine={false}
             charaClass={charaClass}
             style={style} 
           />
           {ceol && <LetterSpan
-              key={i+letter+'-r-natural-typing-effect-cursor'}
               letter={letter}
               cursorAtEndOfLine={ceol}
               charaClass={cl}
               style={style} 
             />}
-        </>;
+        </React.Fragment>;
       })}
-    </>
+    </React.Fragment>
   );
 }
