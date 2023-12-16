@@ -43,5 +43,6 @@ declare global {
     cursorAtEndOfLine: boolean;
     charaClass: string;
     style?: CSSProperties;
+    testId: string | number;
   }
 }

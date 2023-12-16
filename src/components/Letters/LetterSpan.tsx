@@ -5,6 +5,7 @@ export default function LetterSpan({
   cursorAtEndOfLine,
   charaClass,
   style,
+  testId,
 }: LetterSpanProps) {
   let l: string | ReactElement = letter;
 
@@ -12,7 +13,11 @@ export default function LetterSpan({
     l = <>&nbsp;&nbsp;</>;
   }
 
-  return <span className={charaClass} style={style}>
+  return <span
+    data-testid={"typer-span-id-"+testId}
+    className={charaClass}
+    style={style}
+    >
       {l}
     </span>;
 };

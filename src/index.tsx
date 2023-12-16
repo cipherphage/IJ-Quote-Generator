@@ -56,7 +56,7 @@ const Typer = function({
     if (customTypingOptions?.clearBuiltinStyle) {
       if (customTypingOptions.clearBuiltinStyle) {
         const newCl = updateModeInClasses(ccl);
-        setCcl(newCl);
+        setCharaCl(newCl);
       }
     }
 
@@ -84,7 +84,10 @@ const Typer = function({
 
   return (
     <React.Fragment key={key+'-typercontainer'} >
-      {isVisible &&  <div className={ccl} style={typerContainerInlineStyle} >
+      {isVisible &&  <div
+        data-testid="typer-cont-id"
+        className={ccl}
+        style={typerContainerInlineStyle} >
           <LetterSpanner
               key={key+'-typerlspanner'}
               spannerId={key}

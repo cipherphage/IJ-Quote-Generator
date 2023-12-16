@@ -51,13 +51,15 @@ export default function LetterSpanner({
             letter={letter}
             cursorAtEndOfLine={false}
             charaClass={charaClass}
-            style={style} 
+            style={style}
+            testId={i+letter+spannerId}
           />
           {ceol && <LetterSpan
               letter={letter}
               cursorAtEndOfLine={ceol}
               charaClass={cl}
-              style={style} 
+              style={style}
+              testId={(i+1)+letter+spannerId}
             />}
         </React.Fragment>;
       })}
