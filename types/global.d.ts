@@ -4,8 +4,14 @@ export {};
 
 declare global {
   type Letter = {
-    key: number
+    parentKey: number
     letter: string
+  }
+
+  type IsRepeated = {
+    isRepeated: boolean
+    count: number
+    isInfinite: boolean
   }
 
   type CustomTypingOptions = {
@@ -17,11 +23,13 @@ declare global {
     typerCharacterClass?: string | string[]
     typerCharacterInlineStyle?: CSSProperties
     clearBuiltinStyle?: boolean
+    isRepeated?: IsRepeated
   }
 
   interface TyperProps {
     text: string;
     isVisible?: boolean;
+    isPaused?: boolean;
     customTypingOptions?: CustomTypingOptions;
     typerContainerClass?: string | string[];
     typerContainerInlineStyle?: CSSProperties;

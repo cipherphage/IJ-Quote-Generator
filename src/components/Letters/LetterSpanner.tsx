@@ -17,7 +17,7 @@ export default function LetterSpanner({
   const [letterArray, setLetterArray] = useState<string[]>([]);
 
   useEffect(() => {
-    if (spannerId === letter.key) {
+    if (spannerId === letter.parentKey) {
       const newLetterArray = [...letterArray, letter.letter];
       setLetterArray(newLetterArray);
     }

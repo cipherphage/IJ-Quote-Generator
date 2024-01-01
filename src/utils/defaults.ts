@@ -1,7 +1,13 @@
 export const defaultLetter: Letter = {
-  key: -1,
+  parentKey: -1,
   letter: ''
 };
+
+export const defaultIsRepeated: IsRepeated = {
+  isRepeated: false,
+  count: 0,
+  isInfinite: false
+}
 
 export const defaultModes = {
   t: 'typewriter',
