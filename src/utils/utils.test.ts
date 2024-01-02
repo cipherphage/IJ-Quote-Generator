@@ -1,7 +1,7 @@
 import { defaultStyleClasses } from "./defaults";
 import { getRandomMillis, updateModeInClasses } from "./helpers";
 
-describe('Calling typerPauseRandom', function() {
+describe('Calling getRandomMillis', function() {
   it('should return a promise that waits for random milliseconds', function() {
 
       const diff1 = getRandomMillis(50, 2);
