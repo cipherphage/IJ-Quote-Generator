@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import LetterSpanner from "./components/Letters/LetterSpanner";
-import { typerPauseRandom, updateModeInClasses } from "./utils/helpers";
+import { getRandomeMillis, updateModeInClasses } from "./utils/helpers";
 import { defaultIsRepeated, defaultLetter, defaultModes } from "./utils/defaults";
 import React from "react";
 
@@ -19,8 +19,35 @@ const Typer = function({
   const [reset, setReset] = useState(false);
   const [key, setKey] = useState(0);
   const [isRepeated, setIsRepeated] = useState(defaultIsRepeated);
-  const [gen, setGen] = useState<AsyncGenerator<void, void, boolean> | undefined>(undefined);
+  const [gen, setGen] = useState<Generator<void, void, boolean> | undefined>(undefined);
 
+  // Initialize the typewriter generator.
+  const initTypeGen = (reset: boolean = false) => {
+    if (reset) {
+      setKey(key+1);
+      setReset(true);
+    }
+    const tg = typeGen();
+    setGen(tg);
+    tg.next();
+  };
+
+  // Handle each new iteration of the typewriter generator.
+  const typewriter = () => {
+    const typer = gen?.next();
+
+    if (typer?.done) {
+      if (isRepeated.isInfinite || isRepeated.isRepeated) {
+        if (isRepeated.count === 0) {
+          return;
+        }
+        if (!isRepeated.isInfinite && isRepeated.count > 0) {
+          setIsRepeated({...isRepeated, count: isRepeated.count-1});
+        }
+        initTypeGen(true);
+      }
+    }
+  };
   // On new text prop, trigger reset.
   useEffect(() => {
     if (text !== textString) {
@@ -40,16 +67,17 @@ const Typer = function({
   // On new key, set a new typewriter generator.
   useEffect(() => {
     if (textString) {
-      const tg = typeGen();
-      tg.next();
-      setGen(tg);
+      initTypeGen();
     }
   }, [key]);
 
-  // On each new letter, call typewriter.
+  // On each new letter, call typewriter (calls generator's next method).
   useEffect(() => {
     if (textString && !isPaused) {
-      typewriter(gen);
+      if (gen) {
+        const randomMS = getRandomeMillis(customTypingOptions?.ms, customTypingOptions?.pow);
+        setTimeout(typewriter, randomMS);
+      }
     }
   }, [letter, isPaused])
 
@@ -90,15 +118,12 @@ const Typer = function({
   }, [customTypingOptions]);
 
   // Creates LetterSpans one at a time with natural typing timeout effect.
-  const typeGen = async function*(): AsyncGenerator<void, void, boolean> {
-    let tparams = customTypingOptions;
-
+  const typeGen = function*(): Generator<void, void, boolean> {
     if (textString) {
       let i = 0;
       let t = textString.split('');
 
       while (i < t.length) {
-        await typerPauseRandom(tparams?.ms, tparams?.pow);
         const newLetter: Letter = {'parentKey': key, 'letter': t[i]};
         setLetter(newLetter);
         i++;
@@ -106,29 +131,6 @@ const Typer = function({
       }
     }
   };
-
-  const typewriter = async (gen: AsyncGenerator<void, void, boolean> | undefined) => {
-    if (gen) {
-      const typer = await gen.next();
-      if (typer.done) {
-        if (isRepeated.isInfinite || isRepeated.isRepeated) {
-          if (isRepeated.count === 0) {
-            return;
-          }
-          if (!isRepeated.isInfinite && isRepeated.count > 0) {
-            setIsRepeated({...isRepeated, count: isRepeated.count-1});
-          }
-          setKey(key+1);
-          setReset(true);
-          const tg = typeGen();
-          setGen(tg);
-          tg.next();
-        }
-      }
-      return typer;
-    }
-    return;
-  }
 
   return (
     <React.Fragment key={key+'-typercontainer'} >

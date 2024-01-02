@@ -1,11 +1,10 @@
 import { defaultStyleClassesPrefix, defaultStylesRegex } from "./defaults";
 
-export const typerPauseRandom = async (ms = 20, pow = 2) => {
-  // Use random millisecond and power distribution (thus skewing to smaller pauses)
+export const getRandomeMillis = (ms = 20, pow = 2) => {
+  // Use random millisecond and power distribution (skews to smaller pauses)
   // to simulate actual typing.
   const randomMS = Math.pow(Math.floor(Math.random() * ms), pow);
-  const timeout = new Promise((resolve) => setTimeout(resolve, randomMS));
-  return timeout;
+  return randomMS;
 };
 
 // If mode provided, then return classes string with default classes removed
