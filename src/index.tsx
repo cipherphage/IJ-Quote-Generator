@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import LetterSpanner from "./components/Letters/LetterSpanner";
-import { getRandomeMillis, updateModeInClasses } from "./utils/helpers";
+import { getRandomMillis, updateModeInClasses } from "./utils/helpers";
 import { defaultIsRepeated, defaultLetter, defaultModes } from "./utils/defaults";
 import React from "react";
 
@@ -75,7 +75,7 @@ const Typer = function({
   useEffect(() => {
     if (textString && !isPaused) {
       if (gen) {
-        const randomMS = getRandomeMillis(customTypingOptions?.ms, customTypingOptions?.pow);
+        const randomMS = getRandomMillis(customTypingOptions?.ms, customTypingOptions?.pow);
         setTimeout(typewriter, randomMS);
       }
     }
