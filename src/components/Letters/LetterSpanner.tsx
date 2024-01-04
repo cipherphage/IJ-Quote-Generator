@@ -12,7 +12,7 @@ export default function LetterSpanner({
   blinkingCursor,
   charaClass,
   reset,
-  style
+  lang
 }: LetterSpannerProps) {
   const [letterArray, setLetterArray] = useState<string[]>([]);
 
@@ -51,14 +51,12 @@ export default function LetterSpanner({
             letter={letter}
             cursorAtEndOfLine={false}
             charaClass={charaClass}
-            style={style}
             testId={i+letter+spannerId}
           />
           {ceol && <LetterSpan
               letter={letter}
               cursorAtEndOfLine={ceol}
               charaClass={cl}
-              style={style}
               testId={(i+1)+letter+spannerId}
             />}
         </React.Fragment>;

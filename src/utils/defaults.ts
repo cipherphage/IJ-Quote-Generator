@@ -1,3 +1,5 @@
+export const allowedLanguages: { 'ko': ['ko'] };
+
 export const defaultLetter: Letter = {
   parentKey: -1,
   letter: ''

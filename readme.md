@@ -1,7 +1,7 @@
 # React-Natural-Typing-Effect
 
 ## About
-This is a very simple and small React/Typescript component library made to display a string's characters as Span elements within a Div element using a natural-feeling typing animation that is straight-forwardly configurable and stylable.
+This is a simple and small React/Typescript component library for displaying a string's characters as Span elements within a Div element using a configurable and natural-feeling typing animation.
 
 ## Usage
 
@@ -19,9 +19,15 @@ import Typer from "react-natural-typing-effect";
 
 - `text`: 
   - Type: `string`.
-  - Default: none.
   - Required.
+  - Default: none.
   - The string to render with a natural typing effect.
+
+- `id`:
+  - Type: `string`.
+  - Optional.
+  - Default: none.
+  - The HTML element `id` attribute for the parent element included with this component.
   
 - `isVisible`: 
   - Type: `boolean`.
@@ -64,33 +70,40 @@ import Typer from "react-natural-typing-effect";
       - Optional.
       - Default: `false`.
       - Adds a blinking effect to the cursor. Only works if `cursorAtEndOfLine` is also `true`.
-    - `typerCharacterClass`:
-      - Type: `string | string[]`.
-      - Optional.
-      - Default: `''` empty string.
-      - Child component (Span element) CSS classes.
-    - `typerCharacterInlineStyle`:
-      - Type: `CSSProperties`.
-      - Optional.
-      - Default: `{}` empty object.
-      - Child component (Span element) CSS classes.
-    - `clearBuiltinStyle`
-      - Type: `boolean`.
+    - `isRepeated`
+      - Type: `{ isRepeated: boolean, ...}`
       - Optional.
       - Default: none.
-      - Removes any built-in CSS classes.
+      - Specifies options for repeating the typed text. Text is not repeated if this option is unspecified.
+      - Options:
+        - `isRepeated`
+          - Type: `boolean`.
+          - Required.
+          - Default: none.
+          - `true` means the text is typed more than one time in an over-written manner (i.e., the text is erased and re-typed on each repeat). `false` is the same as leaving the optional parent parameter `isRepeated` unspecified: text is not repeated.
+        - `count`
+          - Type: `number`.
+          - Required.
+          - Default: none.
+          - The number of times to repeat the typing of the text.
+        - `isInfinite`
+          - Type: `boolean`.
+          - Required.
+          - Default: none.
+          - `true` means the text will be typed repeatedly without end (i.e., it is theoretically the same as assigning `count` to an infinite value). `false` means that the text won't be typed repeatedly infinitely.
   
-- `typerContainerClass`:
-  - Type: `string | string[]`.
+- `languageOptions`
+  - Type: `{ lang: string }`
   - Optional.
-  - Default: `''` empty string.
-  - Parent component (Div element) CSS classes.
+  - Default: none.
+  - Specifies international language code to follow for breaking down unicode code points (e.g., specify `ko:ko` for Korea:Korean so that `라` appears to be typed as first `ㄹ` and then the `ㅏ` is added to make the final `라`). Because the code point values must be calculated based on a language-specific formula only the following languages are supported at this time: Korean `ko:ko`. 
+    - `lang`
+      Type: string.
+      Required.
+      Default: none.
+      Allowed values:
+        - Korean: `ko:ko`.
 
-- `typerContainerInlineStyle`:
-  - Type: `CSSProperties`.
-  - Optional.
-  - Default: `{}` empty object.
-  - Parent component (Div element) in-line styling.
 
 ## Gifs of it working
 

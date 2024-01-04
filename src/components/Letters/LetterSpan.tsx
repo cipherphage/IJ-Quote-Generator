@@ -16,7 +16,6 @@ export default function LetterSpan({
   return <span
     data-testid={"typer-span-id-"+testId}
     className={charaClass}
-    style={style}
     >
       {l}
     </span>;

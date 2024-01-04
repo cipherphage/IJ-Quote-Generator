@@ -6,19 +6,19 @@ import React from "react";
 
 const Typer = function({ 
   text,
+  id = '',
   isVisible = true,
   isPaused = false,
   customTypingOptions,
-  typerContainerClass = '',
-  typerContainerInlineStyle = {}
+  languageOptions
 }: TyperProps) {
   const [letter, setLetter] = useState<Letter>(defaultLetter);
   const [textString, setTextString] = useState<string>('');
-  const [ccl, setCcl] = useState('');
   const [charaCl, setCharaCl] = useState('');
   const [reset, setReset] = useState(false);
   const [key, setKey] = useState(0);
   const [isRepeated, setIsRepeated] = useState(defaultIsRepeated);
+  const [lang, setLang] = useState('');
   const [gen, setGen] = useState<Generator<void, void, boolean> | undefined>(undefined);
 
   // Initialize the typewriter generator.
@@ -81,14 +81,7 @@ const Typer = function({
     }
   }, [letter, isPaused])
 
-  useEffect(() => {
-    if (Array.isArray(typerContainerClass)) {
-      setCcl(typerContainerClass.join(' '));
-    } else {
-      setCcl(typerContainerClass);
-    }
-  }, [typerContainerClass]);
-
+  // Handle custom typing options 'mode' and 'isRepeated'.
   useEffect(() => {
     if (customTypingOptions?.mode) {
       if (charaCl.indexOf(customTypingOptions.mode) === -1) {
@@ -97,25 +90,25 @@ const Typer = function({
       }
     }
 
-    if (customTypingOptions?.clearBuiltinStyle) {
-      if (customTypingOptions.clearBuiltinStyle) {
-        const newCl = updateModeInClasses(ccl);
-        setCharaCl(newCl);
-      }
-    }
-
-    if (customTypingOptions?.typerCharacterClass && (charaCl !== customTypingOptions?.typerCharacterClass)) {
-      if (Array.isArray(customTypingOptions?.typerCharacterClass)) {
-        setCharaCl(customTypingOptions?.typerCharacterClass.join(' '));
-      } else {
-        setCharaCl(customTypingOptions?.typerCharacterClass);
-      }
-    }
-
     if(customTypingOptions?.isRepeated) {
       setIsRepeated(customTypingOptions.isRepeated);
     }
   }, [customTypingOptions]);
+
+  // If lang option provided the check allowed list, if valid then set lang state,
+  // else set lang to falsey empty string.
+  useEffect(() => {
+    if (languageOptions?.lang) {
+      const langArr = languageOptions.lang.split(':');
+      if (allowedLanguages[langArr[0]]) {
+        if (allowedLanguages[langArr[0]].includes(langArr[1])) {
+          setLang(languageOptions.lang);
+          return;
+        }
+      }
+    }
+    setLang('');
+  }, [languageOptions]);
 
   // Creates LetterSpans one at a time with natural typing timeout effect.
   const typeGen = function*(): Generator<void, void, boolean> {
@@ -135,9 +128,8 @@ const Typer = function({
   return (
     <React.Fragment key={key+'-typercontainer'} >
       {isVisible &&  <div
-        data-testid="typer-cont-id"
-        className={ccl}
-        style={typerContainerInlineStyle} >
+        id={id}
+        data-testid="typer-cont-id">
           <LetterSpanner
               key={key+'-typerlspanner'}
               spannerId={key}
@@ -146,8 +138,8 @@ const Typer = function({
               cursorAtEndOfLine={customTypingOptions?.mode === defaultModes.bgt ? true : customTypingOptions?.cursorAtEndOfLine}
               blinkingCursor={customTypingOptions?.blinkingCursor}
               charaClass={charaCl}
-              reset={reset} 
-              style={customTypingOptions?.typerCharacterInlineStyle}
+              reset={reset}
+              lang={lang}
             /> 
       </div>}
     </React.Fragment>

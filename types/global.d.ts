@@ -4,35 +4,36 @@ export {};
 
 declare global {
   type Letter = {
-    parentKey: number
-    letter: string
+    parentKey: number;
+    letter: string;
   }
 
   type IsRepeated = {
-    isRepeated: boolean
-    count: number
-    isInfinite: boolean
+    isRepeated: boolean;
+    count: number;
+    isInfinite: boolean;
   }
 
   type CustomTypingOptions = {
-    ms?: number
-    pow?: number
-    mode?: string
-    cursorAtEndOfLine?: boolean
-    blinkingCursor?: boolean
-    typerCharacterClass?: string | string[]
-    typerCharacterInlineStyle?: CSSProperties
-    clearBuiltinStyle?: boolean
-    isRepeated?: IsRepeated
+    ms?: number;
+    pow?: number;
+    mode?: string;
+    cursorAtEndOfLine?: boolean;
+    blinkingCursor?: boolean;
+    isRepeated?: IsRepeated;
+  }
+
+  type LanguageOptions = {
+    lang: string;
   }
 
   interface TyperProps {
     text: string;
+    id?: string;
     isVisible?: boolean;
     isPaused?: boolean;
     customTypingOptions?: CustomTypingOptions;
-    typerContainerClass?: string | string[];
-    typerContainerInlineStyle?: CSSProperties;
+    languageOptions?: LanguageOptions;
   }
 
   interface LetterSpannerProps {
@@ -43,14 +44,13 @@ declare global {
     blinkingCursor?: boolean;
     charaClass: string;
     reset: boolean;
-    style?: CSSProperties;
+    lang: string;
   }
 
   interface LetterSpanProps {
     letter: string;
     cursorAtEndOfLine: boolean;
     charaClass: string;
-    style?: CSSProperties;
     testId: string | number;
   }
 }
