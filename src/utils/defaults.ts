@@ -1,4 +1,4 @@
-export const allowedLanguages: { 'ko': ['ko'] };
+export const allowedLanguages: { 'ko': 'ko' };
 
 export const defaultLetter: Letter = {
   parentKey: -1,

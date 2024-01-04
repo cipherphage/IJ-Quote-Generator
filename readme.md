@@ -96,13 +96,13 @@ import Typer from "react-natural-typing-effect";
   - Type: `{ lang: string }`
   - Optional.
   - Default: none.
-  - Specifies international language code to follow for breaking down unicode code points (e.g., specify `ko:ko` for Korea:Korean so that `라` appears to be typed as first `ㄹ` and then the `ㅏ` is added to make the final `라`). Because the code point values must be calculated based on a language-specific formula only the following languages are supported at this time: Korean `ko:ko`. 
+  - Specifies international language code to follow for breaking down unicode code points (e.g., specify `ko` for Korean so that `라` appears to be typed as first `ㄹ` and then the `ㅏ` is added to make the final `라`). Because the code point values must be calculated based on a language-specific formula only the following languages are supported at this time: Korean `ko`. 
     - `lang`
       Type: string.
       Required.
       Default: none.
       Allowed values:
-        - Korean: `ko:ko`.
+        - Korean: `ko`.
 
 
 ## Gifs of it working

@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import LetterSpanner from "./components/Letters/LetterSpanner";
 import { getRandomMillis, updateModeInClasses } from "./utils/helpers";
-import { defaultIsRepeated, defaultLetter, defaultModes } from "./utils/defaults";
+import { 
+  allowedLanguages,
+  defaultIsRepeated,
+  defaultLetter,
+  defaultModes 
+} from "./utils/defaults";
 import React from "react";
 
 const Typer = function({ 
@@ -99,19 +104,18 @@ const Typer = function({
   // else set lang to falsey empty string.
   useEffect(() => {
     if (languageOptions?.lang) {
-      const langArr = languageOptions.lang.split(':');
-      if (allowedLanguages[langArr[0]]) {
-        if (allowedLanguages[langArr[0]].includes(langArr[1])) {
-          setLang(languageOptions.lang);
-          return;
-        }
+      const language = languageOptions.lang;
+      if (allowedLanguages[language]) {
+        setLang(language);
       }
     }
-    setLang('');
   }, [languageOptions]);
 
   // Creates LetterSpans one at a time with natural typing timeout effect.
   const typeGen = function*(): Generator<void, void, boolean> {
+    // const segmenter = new Intl.Segmenter((lang ? lang : 'en'), { granularity: 'grapheme' });
+    // const iterator = segmenter.segment(textString)[Symbol.iterator]();
+
     if (textString) {
       let i = 0;
       let t = textString.split('');
