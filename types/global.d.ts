@@ -23,9 +23,7 @@ declare global {
     isRepeated?: IsRepeated;
   }
 
-  type LanguageOptions = {
-    lang: string;
-  }
+  type Language = string | string[];
 
   interface TyperProps {
     text: string;
@@ -33,7 +31,7 @@ declare global {
     isVisible?: boolean;
     isPaused?: boolean;
     customTypingOptions?: CustomTypingOptions;
-    languageOptions?: LanguageOptions;
+    language?: Language;
   }
 
   interface LetterSpannerProps {
@@ -44,7 +42,7 @@ declare global {
     blinkingCursor?: boolean;
     charaClass: string;
     reset: boolean;
-    lang: string;
+    lang: string | string[];
   }
 
   interface LetterSpanProps {

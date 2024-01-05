@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import LetterSpanner from "./components/Letters/LetterSpanner";
-import { getRandomMillis, updateModeInClasses } from "./utils/helpers";
-import { 
-  allowedLanguages,
+import { getRandomMillis, getSupportedLocales, updateModeInClasses } from "./utils/helpers";
+import {
   defaultIsRepeated,
   defaultLetter,
   defaultModes 
@@ -15,7 +14,7 @@ const Typer = function({
   isVisible = true,
   isPaused = false,
   customTypingOptions,
-  languageOptions
+  language = 'en'
 }: TyperProps) {
   const [letter, setLetter] = useState<Letter>(defaultLetter);
   const [textString, setTextString] = useState<string>('');
@@ -23,7 +22,7 @@ const Typer = function({
   const [reset, setReset] = useState(false);
   const [key, setKey] = useState(0);
   const [isRepeated, setIsRepeated] = useState(defaultIsRepeated);
-  const [lang, setLang] = useState('');
+  const [lang, setLang] = useState<string | string[]>('en');
   const [gen, setGen] = useState<Generator<void, void, boolean> | undefined>(undefined);
 
   // Initialize the typewriter generator.
@@ -100,16 +99,17 @@ const Typer = function({
     }
   }, [customTypingOptions]);
 
-  // If lang option provided the check allowed list, if valid then set lang state,
-  // else set lang to falsey empty string.
+  // If lang option provided the check that it is supported in web api.
   useEffect(() => {
-    if (languageOptions?.lang) {
-      const language = languageOptions.lang;
-      if (allowedLanguages[language]) {
-        setLang(language);
+    if (language.length > 0) {
+      const supportedLang = getSupportedLocales(language);
+      if (supportedLang.length > 0) {
+        setLang(supportedLang);
+      } else {
+        // TODO alert user that language string is unsupported.
       }
     }
-  }, [languageOptions]);
+  }, [language]);
 
   // Creates LetterSpans one at a time with natural typing timeout effect.
   const typeGen = function*(): Generator<void, void, boolean> {
