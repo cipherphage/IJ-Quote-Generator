@@ -36,13 +36,13 @@ declare global {
 
   interface LetterSpannerProps {
     spannerId: number;
-    letter: Letter;
+    letter: Letter | Letter[];
     mode?: string;
     cursorAtEndOfLine?: boolean;
     blinkingCursor?: boolean;
     charaClass: string;
     reset: boolean;
-    lang: Language;
+    childSetIsParentPaused: Function;
   }
 
   interface LetterSpanProps {

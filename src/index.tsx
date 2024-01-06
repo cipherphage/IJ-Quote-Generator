@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import LetterSpanner from "./components/Letters/LetterSpanner";
 import {
   checkEqualityOfArrays,
+  checkNormalizedTextEquality,
+  decomposeText,
   getRandomNaturalTypingPauseInMilliseconds,
   getSupportedLocales,
   updateModeInClasses
@@ -21,12 +23,13 @@ const Typer = function({
   isPaused = false,
   language = ['en']
 }: TyperProps) {
-  const [letter, setLetter] = useState<Letter>(defaultLetter);
+  const [letter, setLetter] = useState<Letter | Letter[]>(defaultLetter);
   const [textString, setTextString] = useState<string>('');
   const [charaCl, setCharaCl] = useState('');
   const [reset, setReset] = useState(false);
   const [key, setKey] = useState(0);
   const [isRepeated, setIsRepeated] = useState(defaultIsRepeated);
+  const [isParentPaused, setIsParentPaused] = useState(false);
   const [lang, setLang] = useState<string[]>(['en']);
   const [currentTyperGen, setCurrentTyperGen] =
     useState<Generator<void, void, boolean> | undefined>(undefined);
@@ -56,14 +59,14 @@ const Typer = function({
 
   // On each new letter, call typewriter after skewed random milliseconds (natural typing pause effect).
   useEffect(() => {
-    if (textString && !isPaused) {
+    if (textString && !isParentPaused) {
       if (currentTyperGen) {
         const randomMS =
           getRandomNaturalTypingPauseInMilliseconds(customTypingOptions?.ms, customTypingOptions?.pow);
         setTimeout(() => typewriter(currentTyperGen), randomMS);
       }
     }
-  }, [letter, isPaused])
+  }, [letter, isParentPaused])
 
   // Handle custom typing options 'mode' and 'isRepeated'.
   useEffect(() => {
@@ -79,7 +82,14 @@ const Typer = function({
     }
   }, [customTypingOptions]);
 
-  // If lang option provided, then check that it is supported in web api.
+  // Handle pause prop 'isPaused'.
+  useEffect(() => {
+    if (isParentPaused !== isPaused) {
+      setIsParentPaused(isPaused);
+    }
+  }, [isPaused]);
+
+  // Handle if lang option provided, then check that it is supported in web api.
   useEffect(() => {
     if (language.length < 1) return;
 
@@ -102,9 +112,15 @@ const Typer = function({
       const segments = segmenter.segment(textString);
 
       for (const {segment} of segments) {
-        const newLetter: Letter = {'parentKey': key, 'letter': segment};
-        setLetter(newLetter);
-        yield;
+        if (checkNormalizedTextEquality(segment)) {
+          const newLetter: Letter = {'parentKey': key, 'letter': segment};
+          setLetter(newLetter);
+          yield;
+        } else {
+          const decompLetterArr = decomposeText(segment, key);
+          setLetter(decompLetterArr);
+          yield;
+        }
       }
     }
   };
@@ -138,6 +154,11 @@ const Typer = function({
     }
   };
 
+  // Handle pausing from child component.
+  const handleChildSetIsParentPaused = () => {
+    setIsParentPaused(!isParentPaused);
+  }
+
   return (
     <React.Fragment key={key+'-typercontainer'} >
       {isVisible &&  <div
@@ -154,7 +175,7 @@ const Typer = function({
               blinkingCursor={customTypingOptions?.blinkingCursor}
               charaClass={charaCl}
               reset={reset}
-              lang={lang}
+              childSetIsParentPaused={handleChildSetIsParentPaused}
             /> 
       </div>}
     </React.Fragment>

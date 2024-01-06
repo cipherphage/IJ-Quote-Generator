@@ -12,14 +12,18 @@ export default function LetterSpanner({
   blinkingCursor,
   charaClass,
   reset,
-  lang
+  childSetIsParentPaused,
 }: LetterSpannerProps) {
   const [letterArray, setLetterArray] = useState<string[]>([]);
 
   useEffect(() => {
-    if (spannerId === letter.parentKey) {
-      const newLetterArray = [...letterArray, letter.letter];
-      setLetterArray(newLetterArray);
+    if (!Array.isArray(letter)) {
+      if (spannerId === letter.parentKey) {
+        const newLetterArray = [...letterArray, letter.letter];
+        setLetterArray(newLetterArray);
+      }
+    } else {
+      childSetIsParentPaused(true);
     }
   }, [letter]);
 

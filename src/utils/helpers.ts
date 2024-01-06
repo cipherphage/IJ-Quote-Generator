@@ -30,3 +30,32 @@ export const updateModeInClasses = (classes: string, mode?: string): string => {
 export const getSupportedLocales = (l:string[]): string[] => {
   return Intl.Segmenter.supportedLocalesOf(l);
 };
+
+const normalizeText = (text: string, opt: string): string => {
+  return text.normalize(opt);
+};
+
+export const checkNormalizedTextEquality = (text: string): boolean => {
+  return normalizeText(text, 'NFC') === normalizeText(text, 'NFD');
+};
+
+export const decomposeText = (text: string, parentKey: number): Letter[] => {
+  const normalizedText = normalizeText(text, 'NFD');
+  const particles = normalizedText.split('');
+  const decomposedText: Letter[] = particles.map((letter) => {
+    return {
+      parentKey: parentKey,
+      letter: letter
+    }
+  });
+  return decomposedText;
+};
+
+export const recomposedText = (text: string[], parentKey: number): Letter => {
+  const singleString = text.reduce((a,b)=>a+b, '');
+  const normalizedText = singleString.normalize('NFC');
+  return {
+    parentKey: parentKey,
+    letter: normalizedText
+  };
+};
