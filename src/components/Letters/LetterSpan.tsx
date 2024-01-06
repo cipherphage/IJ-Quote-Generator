@@ -4,7 +4,6 @@ export default function LetterSpan({
   letter,
   cursorAtEndOfLine,
   charaClass,
-  style,
   testId,
 }: LetterSpanProps) {
   let l: string | ReactElement = letter;

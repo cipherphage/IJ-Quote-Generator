@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import LetterSpanner from "./components/Letters/LetterSpanner";
-import { getRandomMillis, getSupportedLocales, updateModeInClasses } from "./utils/helpers";
+import { checkEqualityOfArrays, getRandomMillis, getSupportedLocales, updateModeInClasses } from "./utils/helpers";
 import {
   defaultIsRepeated,
   defaultLetter,
@@ -10,11 +10,11 @@ import React from "react";
 
 const Typer = function({ 
   text,
+  customTypingOptions,
   id = '',
   isVisible = true,
   isPaused = false,
-  customTypingOptions,
-  language = 'en'
+  language = ['en']
 }: TyperProps) {
   const [letter, setLetter] = useState<Letter>(defaultLetter);
   const [textString, setTextString] = useState<string>('');
@@ -22,36 +22,9 @@ const Typer = function({
   const [reset, setReset] = useState(false);
   const [key, setKey] = useState(0);
   const [isRepeated, setIsRepeated] = useState(defaultIsRepeated);
-  const [lang, setLang] = useState<string | string[]>('en');
-  const [gen, setGen] = useState<Generator<void, void, boolean> | undefined>(undefined);
+  const [lang, setLang] = useState<string[]>(['en']);
+  const [currentTyperGen, setCurrentTyperGen] = useState<Generator<void, void, boolean> | undefined>(undefined);
 
-  // Initialize the typewriter generator.
-  const initTypeGen = (reset: boolean = false) => {
-    if (reset) {
-      setKey(key+1);
-      setReset(true);
-    }
-    const tg = typeGen();
-    setGen(tg);
-    tg.next();
-  };
-
-  // Handle each new iteration of the typewriter generator.
-  const typewriter = () => {
-    const typer = gen?.next();
-
-    if (typer?.done) {
-      if (isRepeated.isInfinite || isRepeated.isRepeated) {
-        if (isRepeated.count === 0) {
-          return;
-        }
-        if (!isRepeated.isInfinite && isRepeated.count > 0) {
-          setIsRepeated({...isRepeated, count: isRepeated.count-1});
-        }
-        initTypeGen(true);
-      }
-    }
-  };
   // On new text prop, trigger reset.
   useEffect(() => {
     if (text !== textString) {
@@ -71,16 +44,16 @@ const Typer = function({
   // On new key, set a new typewriter generator.
   useEffect(() => {
     if (textString) {
-      initTypeGen();
+      initTyperGen();
     }
   }, [key]);
 
-  // On each new letter, call typewriter (calls generator's next method).
+  // On each new letter, call typewriter after skewed random milliseconds (natural typing pause effect).
   useEffect(() => {
     if (textString && !isPaused) {
-      if (gen) {
+      if (currentTyperGen) {
         const randomMS = getRandomMillis(customTypingOptions?.ms, customTypingOptions?.pow);
-        setTimeout(typewriter, randomMS);
+        setTimeout(() => typewriter(currentTyperGen), randomMS);
       }
     }
   }, [letter, isPaused])
@@ -99,9 +72,13 @@ const Typer = function({
     }
   }, [customTypingOptions]);
 
-  // If lang option provided the check that it is supported in web api.
+  // If lang option provided, then check that it is supported in web api.
   useEffect(() => {
-    if (language.length > 0) {
+    if (language.length < 1) return;
+
+    const lCheck = checkEqualityOfArrays(lang, language);
+
+    if (!lCheck) {
       const supportedLang = getSupportedLocales(language);
       if (supportedLang.length > 0) {
         setLang(supportedLang);
@@ -111,20 +88,45 @@ const Typer = function({
     }
   }, [language]);
 
-  // Creates LetterSpans one at a time with natural typing timeout effect.
-  const typeGen = function*(): Generator<void, void, boolean> {
-    // const segmenter = new Intl.Segmenter((lang ? lang : 'en'), { granularity: 'grapheme' });
-    // const iterator = segmenter.segment(textString)[Symbol.iterator]();
-
+  // Creates LetterSpans one at a time.
+  const typerGenerator = function*(): Generator<void, void, boolean> {
     if (textString) {
-      let i = 0;
-      let t = textString.split('');
+      const segmenter = new Intl.Segmenter((lang), { granularity: 'grapheme' });
+      const segments = segmenter.segment(textString);
 
-      while (i < t.length) {
-        const newLetter: Letter = {'parentKey': key, 'letter': t[i]};
+      for (const {segment} of segments) {
+        const newLetter: Letter = {'parentKey': key, 'letter': segment};
         setLetter(newLetter);
-        i++;
         yield;
+      }
+    }
+  };
+
+  // Initialize the typewriter generator.
+  const initTyperGen = (reset: boolean = false) => {
+    if (reset) {
+      setKey(key+1);
+      setReset(true);
+    }
+    
+    const tg = typerGenerator();
+    setCurrentTyperGen(tg);
+    tg.next();
+  };
+
+  // Handle each new iteration of the typewriter generator.
+  const typewriter = (ctg: Generator<void, void, boolean>) => {
+    const typer = ctg?.next();
+
+    if (typer?.done) {
+      if (isRepeated.isInfinite || isRepeated.isRepeated) {
+        if (isRepeated.count === 0) {
+          return;
+        }
+        if (!isRepeated.isInfinite && isRepeated.count > 0) {
+          setIsRepeated({...isRepeated, count: isRepeated.count-1});
+        }
+        initTyperGen(true);
       }
     }
   };

@@ -23,7 +23,7 @@ declare global {
     isRepeated?: IsRepeated;
   }
 
-  type Language = string | string[];
+  type Language = string[];
 
   interface TyperProps {
     text: string;
@@ -42,7 +42,7 @@ declare global {
     blinkingCursor?: boolean;
     charaClass: string;
     reset: boolean;
-    lang: string | string[];
+    lang: Language;
   }
 
   interface LetterSpanProps {
