@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import LetterSpanner from "./components/Letters/LetterSpanner";
-import { checkEqualityOfArrays, getRandomMillis, getSupportedLocales, updateModeInClasses } from "./utils/helpers";
+import {
+  checkEqualityOfArrays,
+  getRandomNaturalTypingPauseInMilliseconds,
+  getSupportedLocales,
+  updateModeInClasses
+} from "./utils/helpers";
 import {
   defaultIsRepeated,
   defaultLetter,
@@ -23,7 +28,8 @@ const Typer = function({
   const [key, setKey] = useState(0);
   const [isRepeated, setIsRepeated] = useState(defaultIsRepeated);
   const [lang, setLang] = useState<string[]>(['en']);
-  const [currentTyperGen, setCurrentTyperGen] = useState<Generator<void, void, boolean> | undefined>(undefined);
+  const [currentTyperGen, setCurrentTyperGen] =
+    useState<Generator<void, void, boolean> | undefined>(undefined);
 
   // On new text prop, trigger reset.
   useEffect(() => {
@@ -52,7 +58,8 @@ const Typer = function({
   useEffect(() => {
     if (textString && !isPaused) {
       if (currentTyperGen) {
-        const randomMS = getRandomMillis(customTypingOptions?.ms, customTypingOptions?.pow);
+        const randomMS =
+          getRandomNaturalTypingPauseInMilliseconds(customTypingOptions?.ms, customTypingOptions?.pow);
         setTimeout(() => typewriter(currentTyperGen), randomMS);
       }
     }
@@ -141,7 +148,9 @@ const Typer = function({
               spannerId={key}
               letter={letter}
               mode={customTypingOptions?.mode}
-              cursorAtEndOfLine={customTypingOptions?.mode === defaultModes.bgt ? true : customTypingOptions?.cursorAtEndOfLine}
+              cursorAtEndOfLine={
+                customTypingOptions?.mode === defaultModes.bgt ? true : customTypingOptions?.cursorAtEndOfLine
+              }
               blinkingCursor={customTypingOptions?.blinkingCursor}
               charaClass={charaCl}
               reset={reset}

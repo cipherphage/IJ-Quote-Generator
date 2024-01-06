@@ -7,7 +7,7 @@ export const checkEqualityOfArrays = (arr1: any[], arr2: any[]): boolean => {
   return check1 && check2;
 };
 
-export const getRandomMillis = (ms = 20, pow = 2): number => {
+export const getRandomNaturalTypingPauseInMilliseconds = (ms = 20, pow = 2): number => {
   // Use random millisecond and power distribution (skews to smaller pauses)
   // to simulate actual typing.
   const randomMS = Math.pow(Math.floor(Math.random() * ms), pow);

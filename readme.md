@@ -93,9 +93,9 @@ import Typer from "react-natural-typing-effect";
           - `true` means the text will be typed repeatedly without end (i.e., it is theoretically the same as assigning `count` to an infinite value). `false` means that the text won't be typed repeatedly infinitely.
   
 - `language`
-  - Type: `string | string[]`
+  - Type: `string[]`
   - Optional.
-  - Default: `en` (English).
+  - Default: `["en"]` (English).
   - Specifies language code to follow for breaking down unicode code points (e.g., specify `ko` for Korean so that `라` appears to be typed as first `ㄹ` and then the `ㅏ` is added to make the final `라`).
   - Note: utilizes the Web API's `Intl` object ([https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)) which accepts `string | string[]` of BCP 47 language tags ([https://datatracker.ietf.org/doc/html/rfc5646](https://datatracker.ietf.org/doc/html/rfc5646)).
 
