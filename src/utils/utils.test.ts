@@ -1,18 +1,18 @@
 import { defaultStyleClasses } from "./defaults";
-import { getRandomMillis, updateModeInClasses } from "./helpers";
+import { getRandomNaturalTypingPauseInMilliseconds, updateModeInClasses } from "./helpers";
 
-describe('Calling getRandomMillis', function() {
-  it('should return a promise that waits for random milliseconds', function() {
+describe('Calling getRandomNaturalTypingPauseInMilliseconds', function() {
+  it('should return a number of random milliseconds', function() {
 
-      const diff1 = getRandomMillis(50, 2);
+      const diff1 = getRandomNaturalTypingPauseInMilliseconds(50, 2);
       expect(diff1).toBeGreaterThan(0);
       expect(diff1).toBeLessThan(2500);
 
-      const diff2 = getRandomMillis(50, 2);
+      const diff2 = getRandomNaturalTypingPauseInMilliseconds(50, 2);
       expect(diff2).toBeGreaterThan(0);
       expect(diff2).toBeLessThan(2500);
 
-      const diff3 = getRandomMillis(50, 2);
+      const diff3 = getRandomNaturalTypingPauseInMilliseconds(50, 2);
       expect(diff3).toBeGreaterThan(0);
       expect(diff3).toBeLessThan(2500);
 

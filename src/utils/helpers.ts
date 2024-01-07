@@ -51,7 +51,7 @@ export const decomposeText = (text: string, parentKey: number): Letter[] => {
   return decomposedText;
 };
 
-export const recomposedText = (text: string[], parentKey: number): Letter => {
+export const recomposeText = (text: string[], parentKey: number): Letter => {
   const singleString = text.reduce((a,b)=>a+b, '');
   const normalizedText = singleString.normalize('NFC');
   return {

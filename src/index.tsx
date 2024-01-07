@@ -97,6 +97,7 @@ const Typer = function({
 
     if (!lCheck) {
       const supportedLang = getSupportedLocales(language);
+      
       if (supportedLang.length > 0) {
         setLang(supportedLang);
       } else {
@@ -118,6 +119,7 @@ const Typer = function({
           yield;
         } else {
           const decompLetterArr = decomposeText(segment, key);
+          setIsParentPaused(true);
           setLetter(decompLetterArr);
           yield;
         }
