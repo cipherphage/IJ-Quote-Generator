@@ -1,4 +1,9 @@
-import { defaultStyleClassesPrefix, defaultStylesRegex } from "./defaults";
+import {
+  defaultGetRandomNaturalTypingPauseParams,
+  defaultSegementerOptions,
+  defaultStyleClassesPrefix,
+  defaultStylesRegex
+} from "./defaults";
 
 export const checkArraysEqual = (arr1: any[], arr2: any[]): boolean => {
   if (arr1.length !== arr2.length) return false;
@@ -7,7 +12,10 @@ export const checkArraysEqual = (arr1: any[], arr2: any[]): boolean => {
   return sortedArr1.every((value, i) => value === sortedArr2[i]);
 };
 
-export const getRandomNaturalTypingPauseInMilliseconds = (ms = 20, pow = 2): number => {
+export const getRandomNaturalTypingPauseInMilliseconds = (
+  ms = defaultGetRandomNaturalTypingPauseParams.ms,
+  pow = defaultGetRandomNaturalTypingPauseParams.pow
+  ): number => {
   // Use random millisecond and power distribution (skews to smaller pauses)
   // to simulate actual typing.
   const randomMS = Math.pow(Math.floor(Math.random() * ms), pow);
@@ -26,12 +34,18 @@ export const updateModeInClasses = (classes: string, mode?: string): string => {
   }
 };
 
+export const getNewIntlSegments = (lang: string[], textString: string): Intl.Segments => {
+  const segmenter = new Intl.Segmenter(lang, defaultSegementerOptions);
+  return segmenter.segment(textString);
+};
+
 export const getSupportedLocales = (l:string[]): string[] => {
   try {
     const result = Intl.Segmenter.supportedLocalesOf(l);
     return result;
   } catch (e) {
-    console.warn('Intl.Segmenter.supportedLocalesOf() indicates that at least one of the language strings provided is not supported. Defaulting to English.');
+    // Error: this indicates that a language string is not supported.
+    // Default to English.
     return ['en'];
   }
 };

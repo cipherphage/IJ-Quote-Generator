@@ -4,6 +4,7 @@ import {
   checkArraysEqual,
   checkNormalizedTextEquality,
   decomposeText,
+  getNewIntlSegments,
   getRandomNaturalTypingPauseInMilliseconds,
   getSupportedLocales,
   updateModeInClasses
@@ -11,17 +12,18 @@ import {
 import {
   defaultIsRepeated,
   defaultLetter,
-  defaultModes 
+  defaultModes, 
+  defaultProps
 } from "./utils/defaults";
 import React from "react";
 
 const Typer = function({ 
   text,
   customTypingOptions,
-  id = '',
-  isVisible = true,
-  isPaused = false,
-  language = ['en']
+  id = defaultProps.id,
+  isVisible = defaultProps.isVisible,
+  isPaused = defaultProps.isPaused,
+  language = defaultProps.language,
 }: TyperProps) {
   const [letter, setLetter] = useState<Letter | Letter[]>(defaultLetter);
   const [textString, setTextString] = useState<string>('');
@@ -30,7 +32,7 @@ const Typer = function({
   const [key, setKey] = useState(0);
   const [isRepeated, setIsRepeated] = useState(defaultIsRepeated);
   const [isParentPaused, setIsParentPaused] = useState(false);
-  const [lang, setLang] = useState<string[]>(['en']);
+  const [lang, setLang] = useState<string[]>(defaultProps.language);
   const [currentTyperGen, setCurrentTyperGen] =
     useState<Generator<void, void, boolean> | undefined>(undefined);
 
@@ -110,11 +112,7 @@ const Typer = function({
   // Creates LetterSpans one at a time.
   const typerGenerator = function*(): Generator<void, void, boolean> {
     if (textString) {
-      const segmenter = new Intl.Segmenter(
-        lang,
-        { granularity: 'grapheme', localeMatcher: "lookup" }
-      );
-      const segments = segmenter.segment(textString);
+      const segments = getNewIntlSegments(lang, textString);
 
       for (const {segment} of segments) {
         if (checkNormalizedTextEquality(segment)) {

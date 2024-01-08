@@ -7,7 +7,8 @@ import {
   normalizeText,
   checkNormalizedTextEquality,
   decomposeText,
-  recomposeText
+  recomposeText,
+  getNewIntlSegments
 } from "./helpers";
 
 describe('Calling checkArraysEqualDisregardingDupeElems', function() {
@@ -193,6 +194,50 @@ describe('Calling recomposeText', function() {
       const testVal = recomposeText(t.test.a, t.test.b);
       expect(testVal.parentKey).toStrictEqual(t.expected.parentKey);
       expect(testVal.letter).toStrictEqual(t.expected.letter);
+    });
+  });
+});
+
+describe('Calling getNewIntlSegments', function() {
+  it('should return new instance of Intl.Segments', function() {
+    const testArray = [
+      { test: {a: ['en'], b: 'abc'},
+        expected: {segment: 'a', index: 0, input: 'abc', length: 3} 
+      },
+      { test: {a: ['en', 'ko', 'jp'], b: '뭐ド'},
+        expected: {segment: '뭐', index: 0, input: '뭐ド', length: 2}
+      },
+      { test: {a: ['en', 'zh-Hant'], b: '뭐ド'},
+        expected: {segment: '뭐', index: 0, input: '뭐ド', length: 2}
+      },
+      { test: {a: ['en'], b: '뭐ド'},
+        expected: {segment: '뭐', index: 0, input: '뭐ド', length: 2}
+      },
+      { test: {a: ['en'], b: '1'},
+        expected: {segment: '1', index: 0, input: '1', length: 1}
+      },
+      { test: {a: ['en'], b: ' '},
+        expected: {segment: ' ', index: 0, input: ' ', length: 1}
+      },
+      { test: {a: ['jp'], b: ' '},
+        expected: {segment: ' ', index: 0, input: ' ', length: 1}
+      },
+      { test: {a: ['en'], b: ''},
+        expected: {length: 0}
+      },
+      { test: {a: ['jp'], b: ''},
+        expected: {length: 0}
+      }
+    ];
+
+    testArray.forEach(function(t) {
+      const [...testVal] = getNewIntlSegments(t.test.a, t.test.b);
+      expect(testVal.length).toStrictEqual(t.expected.length);
+      if (testVal.length > 0) {
+        expect(testVal[0].segment).toStrictEqual(t.expected.segment);
+        expect(testVal[0].index).toStrictEqual(t.expected.index);
+        expect(testVal[0].input).toStrictEqual(t.expected.input);
+      }
     });
   });
 });

@@ -1,3 +1,20 @@
+export const defaultProps = {
+  id: '',
+  isVisible: true,
+  isPaused: false,
+  language: ['en']
+};
+
+export const defaultGetRandomNaturalTypingPauseParams = {
+  ms: 20,
+  pow: 2
+};
+
+export const defaultSegementerOptions: Intl.SegmenterOptions = {
+  granularity: 'grapheme',
+  localeMatcher: 'lookup'
+};
+
 export const defaultLetter: Letter = {
   parentKey: -1,
   letter: ''

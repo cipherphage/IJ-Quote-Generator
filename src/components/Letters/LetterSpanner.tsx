@@ -3,7 +3,10 @@ import "./letterSpanStyles.css";
 import LetterSpan from "./LetterSpan";
 import { defaultModes, defaultStyleClasses } from "../../utils/defaults";
 import React from "react";
-import { getRandomNaturalTypingPauseInMilliseconds, recomposeText } from "../../utils/helpers";
+import {
+  getRandomNaturalTypingPauseInMilliseconds,
+  recomposeText
+} from "../../utils/helpers";
 
 export default function LetterSpanner({
   spannerId,
@@ -31,17 +34,10 @@ export default function LetterSpanner({
     const isArr = Array.isArray(letter);
 
     if (!isArr) {
-      if (spannerId === letter.parentKey) {
-        const newLetterArray = [...letterArray, letter.letter];
-        setLetterArray(newLetterArray);
-      }
+      handleUpdateLetterArray(letter);
     } else if (letter.length === 1) {
       const l = letter[0];
-
-      if (spannerId === l.parentKey) {
-        const newLetterArray = [...letterArray, l.letter];
-        setLetterArray(newLetterArray);
-      }
+      handleUpdateLetterArray(l);
     } else {
       initDecomposedTyperwriter(letter);
     }
@@ -50,6 +46,13 @@ export default function LetterSpanner({
   useEffect(() => {
     if (reset) setLetterArray([]);
   }, [reset]);
+
+  const handleUpdateLetterArray = (letter: Letter) => {
+    if (spannerId === letter.parentKey) {
+      const newLetterArray = [...letterArray, letter.letter];
+      setLetterArray(newLetterArray);
+    }
+  };
 
   const initDecomposedTyperwriter = (letterObjArr: Letter[]) => {
     const letterObjIter = letterObjArr[Symbol.iterator]();
@@ -65,7 +68,6 @@ export default function LetterSpanner({
     }
     const nextDecomposedLetter = nextIter.value;
     const prevLetterArrayElement = letterArray.pop();
-    let newLetterArray;
 
     if (prevLetterArrayElement) {
       const recomposedText =
@@ -73,12 +75,10 @@ export default function LetterSpanner({
           [prevLetterArrayElement, nextDecomposedLetter.letter],
           nextDecomposedLetter.parentKey
         );
-      newLetterArray = [...letterArray, recomposedText.letter];
+      handleUpdateLetterArray(recomposedText);
     } else {
-      newLetterArray = [nextDecomposedLetter.letter];
+      handleUpdateLetterArray(nextDecomposedLetter);
     }
-
-    setLetterArray(newLetterArray);
   };
 
   return (
