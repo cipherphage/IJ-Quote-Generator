@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import LetterSpanner from "./components/Letters/LetterSpanner";
 import {
-  checkEqualityOfArrays,
+  checkArraysEqual,
   checkNormalizedTextEquality,
   decomposeText,
   getRandomNaturalTypingPauseInMilliseconds,
@@ -90,10 +90,11 @@ const Typer = function({
   }, [isPaused]);
 
   // Handle if lang option provided, then check that it is supported in web api.
+  // Default is english.
   useEffect(() => {
     if (language.length < 1) return;
 
-    const lCheck = checkEqualityOfArrays(lang, language);
+    const lCheck = checkArraysEqual(lang, language);
 
     if (!lCheck) {
       const supportedLang = getSupportedLocales(language);
@@ -109,7 +110,10 @@ const Typer = function({
   // Creates LetterSpans one at a time.
   const typerGenerator = function*(): Generator<void, void, boolean> {
     if (textString) {
-      const segmenter = new Intl.Segmenter((lang), { granularity: 'grapheme' });
+      const segmenter = new Intl.Segmenter(
+        lang,
+        { granularity: 'grapheme', localeMatcher: "lookup" }
+      );
       const segments = segmenter.segment(textString);
 
       for (const {segment} of segments) {

@@ -68,7 +68,11 @@ export default function LetterSpanner({
     let newLetterArray;
 
     if (prevLetterArrayElement) {
-      const recomposedText = recomposeText([prevLetterArrayElement, nextDecomposedLetter.letter], nextDecomposedLetter.parentKey);
+      const recomposedText =
+        recomposeText(
+          [prevLetterArrayElement, nextDecomposedLetter.letter],
+          nextDecomposedLetter.parentKey
+        );
       newLetterArray = [...letterArray, recomposedText.letter];
     } else {
       newLetterArray = [nextDecomposedLetter.letter];
