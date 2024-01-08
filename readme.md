@@ -1,7 +1,7 @@
 # React-Natural-Typing-Effect
 
 ## About
-This is a simple and small React/Typescript component library for displaying a string's characters as Span elements within a Div element using a configurable and natural-feeling typing animation.
+This is a simple and small React/Typescript component library for displaying a string's characters as Span elements within a Div element using a configurable and natural-feeling typing animation, pause, and decomposition of decomposeable unicode characters. Decomposition refers to graphemes that are made up of constituent, mappable components within unicode. For example, in this component library a Korean string `라` appears to be typed as first `ㄹ` and then the `ㅏ` is added to make the final `라`. This can simulate a more realistic typing effect.
 
 ## Usage
 
@@ -96,8 +96,8 @@ import Typer from "react-natural-typing-effect";
   - Type: `string[]`
   - Optional.
   - Default: `["en"]` (English).
-  - Specifies language code to follow for breaking down unicode code points (e.g., specify `ko` for Korean so that `라` appears to be typed as first `ㄹ` and then the `ㅏ` is added to make the final `라`).
-  - Note: utilizes the Web API's `Intl` object ([https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)) which accepts `string | string[]` of BCP 47 language tags ([https://datatracker.ietf.org/doc/html/rfc5646](https://datatracker.ietf.org/doc/html/rfc5646)).
+  - Specifies language code to follow for breaking down unicode code points. This ensures the text is properly split into its constituent graphemes.
+  - Note: utilizes the Web API's `Intl` object ([https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)) which accepts `string[]` of BCP 47 language tags ([https://datatracker.ietf.org/doc/html/rfc5646](https://datatracker.ietf.org/doc/html/rfc5646)). However, in most cases not specifying a language option will still work fine.
 
 
 ## Gifs of it working
