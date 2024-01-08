@@ -1,4 +1,4 @@
-import { queryByTestId, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Typer from './index';
 import { defaultStyleClasses } from './utils/defaults';
