@@ -147,7 +147,7 @@ const Typer = function({
 
     if (typer?.done) {
       if (isRepeated.isInfinite || isRepeated.isRepeated) {
-        if (isRepeated.count === 0) {
+        if (!isRepeated.isInfinite && isRepeated.count === 0) {
           return;
         }
         if (!isRepeated.isInfinite && isRepeated.count > 0) {
