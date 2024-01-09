@@ -91,6 +91,11 @@ import Typer from "react-natural-typing-effect";
           - Required.
           - Default: none.
           - `true` means the text will be typed repeatedly without end (i.e., it is theoretically the same as assigning `count` to an infinite value). `false` means that the text won't be typed repeatedly infinitely.
+        - `msPauseBetweenRepeats`
+          - Type: `number`.
+          - Required.
+          - Default: none.
+          - This is how long the component will wait once the text has been completely typed before erasing the text and starting over.
   
 - `language`
   - Type: `string[]`
@@ -100,14 +105,9 @@ import Typer from "react-natural-typing-effect";
   - Note: utilizes the Web API's `Intl` object ([https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)) which accepts `string[]` of BCP 47 language tags ([https://datatracker.ietf.org/doc/html/rfc5646](https://datatracker.ietf.org/doc/html/rfc5646)). However, in most cases not specifying a language option will still work fine.
 
 
-## Gifs of it working
+## Gif of it working (v2.0.0)
 
-`typewriter` mode: <br/>
-![typewriter mode](default-jKxlV92Cod.gif)
+Note that the Arabic example makes use the CSS rule `direction:'rtl'` outside of this component library: <br/>
+![screenshot gif of version 2.0.0 of React-Natural-Typing-Effect npm module components](./v2-modes-O9jZWM5DK6.gif)
 
-`negativeTypewriter` mode: <br/>
-![negative typewriter mode](negative-zbv2zUWpHv.gif)
-
-`blackGreenTerminal` mode: <br/>
-![black green terminal mode](bgterminal-4ysR3YWRt7.gif)
 
