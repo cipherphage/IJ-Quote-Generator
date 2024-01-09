@@ -107,6 +107,7 @@ import Typer from "react-natural-typing-effect";
 
 ## Gif of it working (v2.0.0)
 
+I made a JS Fiddle to try out some different methods of splitting the strings and decomposing the unicode characters: [https://jsfiddle.net/j3pydev/635x09d4/](https://jsfiddle.net/j3pydev/635x09d4/). In it I used some translations of the English sentence "My name is JS Fiddle. What is your name?" that I grabbed from DuckDuckGo's search engine. I have no idea of the accuracy of these translations, although the Japanese and Koreans ones look correct enough to me.<br/> 
 Note that the Arabic example makes use the CSS rule `direction:'rtl'` outside of this component library: <br/>
 ![screenshot gif of version 2.0.0 of React-Natural-Typing-Effect npm module components](./v2-modes-O9jZWM5DK6.gif)
 
