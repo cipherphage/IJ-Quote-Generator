@@ -10,6 +10,7 @@ declare global {
     isRepeated: boolean;
     count: number;
     isInfinite: boolean;
+    msPauseBetweenRepeats: number;
   }
 
   type CustomTypingOptions = {

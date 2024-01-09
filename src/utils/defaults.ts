@@ -23,7 +23,8 @@ export const defaultLetter: Letter = {
 export const defaultIsRepeated: IsRepeated = {
   isRepeated: false,
   count: 0,
-  isInfinite: false
+  isInfinite: false,
+  msPauseBetweenRepeats: 0
 }
 
 export const defaultModes = {

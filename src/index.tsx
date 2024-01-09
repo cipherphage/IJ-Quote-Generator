@@ -142,7 +142,7 @@ const Typer = function({
   };
 
   // Handle each new iteration of the typewriter generator.
-  const typewriter = (ctg: Generator<void, void, boolean>) => {
+  const typewriter = async (ctg: Generator<void, void, boolean>) => {
     const typer = ctg?.next();
 
     if (typer?.done) {
@@ -153,6 +153,8 @@ const Typer = function({
         if (!isRepeated.isInfinite && isRepeated.count > 0) {
           setIsRepeated({...isRepeated, count: isRepeated.count-1});
         }
+        await new Promise(resolve =>
+          setTimeout(resolve, isRepeated.msPauseBetweenRepeats));
         initTyperGen(true);
       }
     }
