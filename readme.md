@@ -95,7 +95,7 @@ import Typer from "react-natural-typing-effect";
           - Type: `number`.
           - Required.
           - Default: none.
-          - This is how long the component will wait once the text has been completely typed before erasing the text and starting over.
+          - This is how long the component will wait, in milliseconds, once the text has been completely typed before erasing the text and starting over.
   
 - `language`
   - Type: `string[]`
